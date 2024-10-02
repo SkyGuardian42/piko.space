@@ -4,10 +4,17 @@ import { useState } from "react";
 import { isOSX } from "@/utils/getPlatform";
 import { useUser } from "@/state/UserProvider";
 import { InlineTextEdit } from "@/components/InlineTextEdit/InlineTextEdit";
+import { ApiKeyInput } from "@/components/ApiKeyInput/ApiKeyInput";
 
 export function Settings() {
-  const [autoGenerateTitles, setAutoGenerateTitles] = useState(false);
-  const { firebaseUser, user } = useUser();
+  const { firebaseUser, user, settings, setUsername } = useUser();
+  const {
+    autoGenerateTitle,
+    setAutoGenerateTitle,
+    openAIKey,
+    openAIKeyError,
+    setOpenAIKey,
+  } = settings;
 
   return (
     <div className={s.settings}>
@@ -23,13 +30,22 @@ export function Settings() {
         )}
 
         <div>
-          <InlineTextEdit setValue={() => {}} value={user?.name || ""} />
+          <InlineTextEdit setValue={setUsername} value={user?.name || ""} />
           {firebaseUser?.email && <p>{firebaseUser.email}</p>}
         </div>
       </section>
 
       <section>
-        <Checkbox onChange={setAutoGenerateTitles} value={autoGenerateTitles}>
+        <ApiKeyInput
+          value={openAIKey || ""}
+          onChange={setOpenAIKey}
+          showNCharacters={3}
+          error={openAIKeyError}
+          placeholder="Enter your OpenAI API Key"
+        />
+        <br />
+
+        <Checkbox onChange={setAutoGenerateTitle} value={autoGenerateTitle}>
           Automatically generate titles when opening the {isOSX ? "⌘" : "Ctrl"}{" "}
           + k menu
         </Checkbox>

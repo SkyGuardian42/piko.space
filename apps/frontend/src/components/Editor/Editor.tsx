@@ -28,11 +28,18 @@ export default ({ doc, provider, fileTitle, fileId }: EditorProps) => {
 
   const [navOpen] = useCommandMenuStore((state) => [state.navOpen]);
 
-  const openAIKey = useUser().openAIKey;
+  const { openAIKey, autoGenerateTitle } = useUser().settings;
   const utils = trpc.useContext();
 
   useEffect(() => {
-    if (!navOpen || !openAIKey || !editor || fileTitle !== null) return;
+    if (
+      !navOpen ||
+      !openAIKey ||
+      !editor ||
+      fileTitle !== null ||
+      !autoGenerateTitle
+    )
+      return;
     const fileContent = editor.getText();
     if (fileContent.length === 0) return;
 

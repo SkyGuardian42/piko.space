@@ -193,7 +193,8 @@ export default function CommandMenu() {
                 </Button>
                 <AuthState />
               </div>
-              <OpenAISetup />
+
+              {currentTab != "settings" && <OpenAISetup />}
             </motion.div>
           </Dialog.Content>
         </Dialog.Overlay>

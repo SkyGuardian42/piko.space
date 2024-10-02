@@ -17,7 +17,7 @@ import s from "./SignInPopup.module.scss";
 const auth = getAuth();
 
 export default function SignInPopup() {
-  const { login, user } = useUser();
+  const { signIn: login, user } = useUser();
   const [username, setUsername] = useState("");
 
   if (!user?.isAnonymous) return null;

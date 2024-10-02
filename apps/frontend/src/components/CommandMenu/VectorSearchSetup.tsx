@@ -8,7 +8,7 @@ import { useUser } from "../../state/UserProvider";
 
 export default function OpenAISetup() {
   const [apiKey, setApiKey] = useState("");
-  const { openAIKey, setOpenAIKey, openAIKeyError } = useUser();
+  const { openAIKey, setOpenAIKey, openAIKeyError } = useUser().settings;
 
   if (openAIKey != null) return null;
 
